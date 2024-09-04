@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FileSummer": {
+      "commandName": "Project",
+      "commandLineArgs": "gigabyte\r\n"
+    }
+  }
+}

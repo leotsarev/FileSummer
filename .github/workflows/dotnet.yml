@@ -25,7 +25,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Publish
-      run: dotnet publish --runtime linux-x64 --configuration Release
+      run: dotnet publish --runtime linux-x64 --configuration Release -p:PublishAot
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4
       with:

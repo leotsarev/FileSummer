@@ -27,6 +27,6 @@ jobs:
     - name: Publish
       run: dotnet publish --runtime linux-x64 --configuration Release
     - name: Upload a Build Artifact
-      uses: actions/upload-artifact
+      uses: actions/upload-artifact@v4
       with:
         path: ./bin/Release/net8.0/linux-x64/publish/FileSummer

@@ -3,9 +3,9 @@ using System.Threading.Channels;
 
 const int BufferSize = 10 * 1024 * 1024;
 
-static async Task<uint> SumArrays(ChannelReader<byte[]> channel)
+static async Task<long> SumArrays(ChannelReader<byte[]> channel)
 {
-    uint sum = 0;
+    long sum = 0;
     await foreach (var segmentSum in channel.ReadAllAsync().Select(SumArray))
     {
         unchecked { sum += segmentSum; }
@@ -13,13 +13,13 @@ static async Task<uint> SumArrays(ChannelReader<byte[]> channel)
     return sum;
 }
 
-static uint SumArray(byte[] segment)
+static long SumArray(byte[] segment)
 {
     if (segment.Length % 4 != 0)
     {
         throw new InvalidOperationException();
     }
-    uint sum = 0;
+    long sum = 0;
     for (int i = 0; i < segment.Length; i += 4)
     {
         unchecked { sum += BitConverter.ToUInt32(segment, i); }

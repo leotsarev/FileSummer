@@ -6,6 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <InvariantGlobalization>true</InvariantGlobalization>
+	  <PublishTrimmed>true</PublishTrimmed>
+	  <TrimMode>Link</TrimMode>
+	  <PublishSingleFile>true</PublishSingleFile>
   </PropertyGroup>
 
 	<ItemGroup>

@@ -1,7 +1,8 @@
 ﻿using System.Buffers;
+using System.Diagnostics;
 using System.Threading.Channels;
 
-const int BufferSize = 10 * 1024 * 1024;
+const int BufferSize = 2 * 1024 * 1024;
 
 static async Task<long> SumArrays(ChannelReader<byte[]> channel)
 {
@@ -34,7 +35,9 @@ ArgumentException.ThrowIfNullOrWhiteSpace(fileName);
 var channel = Channel.CreateBounded<byte[]>(new BoundedChannelOptions(8) { SingleWriter = true, SingleReader = true });
 var sumTask = Task.Run(async () => await SumArrays(channel.Reader));
 
-using var file = File.OpenRead(fileName);
+var sw = new Stopwatch();
+sw.Start();
+using var file = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read, BufferSize, FileOptions.SequentialScan);
 while (true)
 {
     var arr = ArrayPool<byte>.Shared.Rent(BufferSize);
@@ -44,5 +47,7 @@ while (true)
 }
 channel.Writer.Complete();
 
-Console.WriteLine(await sumTask);
+var sum = await sumTask;
+sw.Stop();
+Console.WriteLine($"Calculated {sum} in {sw.ElapsedMilliseconds} ms");
 

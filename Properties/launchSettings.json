@@ -2,7 +2,7 @@
   "profiles": {
     "FileSummer": {
       "commandName": "Project",
-      "commandLineArgs": "gigabyte\r\n"
+      "commandLineArgs": "C:\\Users\\leo\\source\\repos\\FileSummer\\bin\\10g.bin\r\n"
     }
   }
 }
